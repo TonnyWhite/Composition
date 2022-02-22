@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_smile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13858695652173914" />
         <entry key="app/src/main/res/layout/fragment_choose_level.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_game.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_game.xml" value="0.331024169921875" />
         <entry key="app/src/main/res/layout/fragment_game_finished.xml" value="0.1" />
         <entry key="app/src/main/res/layout/welcome_fragment.xml" value="0.33322296142578123" />
       </map>

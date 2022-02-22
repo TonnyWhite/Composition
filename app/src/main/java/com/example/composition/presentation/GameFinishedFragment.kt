@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.composition.R
@@ -38,16 +39,57 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupOnClickListener()
+        bindView()
+
+    }
+
+    private fun setupOnClickListener(){
         val callback = object : OnBackPressedCallback1(true) {
             override fun handleOnBackPressed() {
                 retryGame()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,callback)
-
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
+
+    }
+
+    private fun bindView(){
+        with(binding){
+            if (gameResult.winner){
+                emojiResult.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_smile
+                ))
+            } else {
+                emojiResult.setImageDrawable(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_sad
+                ))
+            }
+
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_score),
+                gameResult.gameSettings.minCountOfRightAnswers
+            )
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameResult.countOfRightAnswers
+            )
+            tvRequiredPercentage.text = String.format(
+                getString(R.string.required_percentage),
+                gameResult.gameSettings.minPercentOfRightAnswers.toString()
+            )
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                gameResult.countOfRightAnswers.toDouble() /  gameResult.countOfQuestions * 100
+            )
+
+        }
+
     }
 
     override fun onDestroy() {
@@ -62,7 +104,10 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(GameFragment.NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        requireActivity().supportFragmentManager.popBackStack(
+            GameFragment.NAME,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
 
     }
     

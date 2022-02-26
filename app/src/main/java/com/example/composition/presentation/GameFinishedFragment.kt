@@ -52,38 +52,7 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun bindView(){
-        with(binding){
-            if (args.gameResult.winner){
-                emojiResult.setImageDrawable(ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.ic_smile
-                ))
-            } else {
-                emojiResult.setImageDrawable(ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.ic_sad
-                ))
-            }
-
-            tvRequiredAnswers.text = String.format(
-                getString(R.string.required_score),
-                args.gameResult.gameSettings.minCountOfRightAnswers
-            )
-            tvScoreAnswers.text = String.format(
-                getString(R.string.score_answers),
-                args.gameResult.countOfRightAnswers
-            )
-            tvRequiredPercentage.text = String.format(
-                getString(R.string.required_percentage),
-                args.gameResult.gameSettings.minPercentOfRightAnswers.toString()
-            )
-            tvScorePercentage.text = String.format(
-                getString(R.string.score_percentage),
-                args.gameResult.countOfRightAnswers.toDouble() /  args.gameResult.countOfQuestions * 100
-            )
-
-        }
-
+        binding.gameResult = args.gameResult
     }
 
     override fun onDestroy() {
